@@ -1,5 +1,7 @@
 # Injury Data Visualizations
 
+![Home Screen of the Vizualz!](/public/assets/images/injuryGraph.png "Home Page")
+
 Welcome to the **Injury Data Visualizations** repository! This project provides tools for visualizing injury data to help in understanding trends, patterns, and insights.
 
 ## Table of Contents
