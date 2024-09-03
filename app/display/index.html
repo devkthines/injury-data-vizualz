@@ -1,0 +1,160 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        #titleComments {
+            padding: 10px;
+            background-color: #fffd00;
+            text-align: center;
+        }
+h1{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: italic;
+}
+        /* d-flex flex-lg-row flex-sm-column-reverse flex-md-column-reverse justify-content-around align-items-md-center align-items-sm-center */
+        #custComments {
+            /* margin: 0 30px; */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+
+        }
+
+        #titleComments h1 {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+
+        #a1 a {
+
+            color: black !important;
+            text-decoration: none !important;
+        }
+
+
+        .box-1 {
+            /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+            font-size: 24px !important;
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 0px;
+            color: black !important;
+            width: 30vw;
+        }
+
+        .box-2 {
+            /* margin-left: 5vw; */
+            width: 60vw;
+        }
+
+        li {
+            list-style-type: none;
+
+            margin: 10px 0;
+            /* width: 20vw; */
+        }
+
+       .box-1 li a {
+            color: black;
+            text-decoration: none;
+           font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+
+        .nav-item:hover {
+            /* color: red; */
+            background-color: #fffd00;
+            /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+        }
+        #activeOne{
+          background-color: #fffd00;
+        }
+        a.nav-link {
+            color: black !important;
+            text-decoration: none;
+        }
+
+        li span a {
+            text-decoration: none;
+        }
+
+        li span a:hover {
+            color: red;
+            text-decoration: underline;
+            background-color: transparent;
+        }
+        li span a {
+            color: #0d6efd;
+        }
+        .bolded {
+            font-weight: 700;
+            font-size: 18px;
+            font-style: italic;
+            /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif!important; */
+        }
+        .separate{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        @media all and (max-width: 768px) {
+            .box-1 {
+                display: none;
+            }
+
+            #custComments {
+                display: block;
+            }
+
+            .box-2 {
+                width: 100vw;
+                padding: 0 20px;
+            }
+        }
+    </style>
+<div id="formCont" class="container-fluid"><main>
+<div id="titleComments">
+<h1>In the News</h1>
+</div>
+<br>
+<div id="custComments"><!-- <div class="row"> --> <!-- <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3"> -->
+<section class="box-1">
+<ul class="nav d-flex flex-column">
+<li class="nav-item"><a href="/Our_Story" target="_top">Our Story</a></li>
+<li id="activeOne" class="nav-item"><a target="_top" aria-current="page">In the News</a></li>
+<li class="nav-item"><a href="/Charitable_Giving" target="_top">Charitable Giving</a></li>
+<li class="nav-item"><a href="/Scrip" target="_top">Scrip</a></li>
+<li class="nav-item"><a href="/Lets_Get_Social" target="_top">Let's Get Social</a></li>
+</ul>
+</section>
+<!-- </div> --> <!-- <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9"> -->
+<section class="box-2">
+<h1 class="">Press Releases</h1>
+<ul>
+    <li class="coverage"><strong>December 13, 2023</strong> - <span><a href="https://drive.google.com/file/d/1YI8ricVE7dRb4mqhOI_ND265TS9NdwFQ/view?usp=sharing" target="_blank" rel="noopener">August 21, 2024 - Northern California Grocery Retailer Appoints New CEO</a></span></li>
+    <li class="separate"><strong>December 13, 2023</strong> - <span><a href="https://drive.google.com/file/d/1jSer1RdcVPmFlW1tcgksFNzwfCg0_cHj/view?usp=sharing" target="_blank" rel="noopener">28 YEAR TRADITION BRINGS 3.2 TONS OF TURKEYS TO NEEDY FAMILIES LOCATED IN SAN JOAQUIN COUNTY</a></span></li>
+<li class="separate"><span class="bolded">October 9, 2023 &ndash; </span><span><a href="https://drive.google.com/file/d/1Wi3gcZDNk0EZ1DePul_q2WJA_CDw-lG3/view?usp=sharing" target="_blank" rel="noopener">FOOD 4 LESS TO OPEN NEW STORE IN FAIRFIELD</a></span></li>
+<li class="separate"><span class="bolded">February 27, 2023 &ndash;</span> <span><a href="https://drive.google.com/file/d/1EvboCvsfIcApMXOD2kMoUwEkLbRtVbgH/view?usp=sharing" target="_blank" rel="noopener">FOOD 4 LESS AND RANCHO SAN MIGUEL MARKETS RAISES OVER $33,000 FOR SALVATION ARMY</a></span></li>
+<li class="separate"><span class="bolded">December 12, 2022 &ndash;</span> <span><a href="https://drive.google.com/file/d/1IYwUIXSVQePnXMJNnLTFrAodTxR9t9MI/view?usp=sharing" target="_blank" rel="noopener">27 YEAR TRADITION BRINGS 3.2 TONS OF TURKEYS TO NEEDY FAMILIES LOCATED IN SAN JOAQUIN COUNTY</a></span></li>
+<li class="separate"><span class="bolded">October 13, 2021 &ndash;</span> <span><a href="https://drive.google.com/file/d/1p99SDgn85NU18cE6l5JhiRMdtfPYoFJm/view?usp=sharing" target="_blank" rel="noopener">FOOD 4 LESS AND RANCHO SAN MIGUEL MARKETS ANNOUNCE LAUNCH OF EBT SNAP FOR SAME-DAY DELIVERY AND PICKUP VIA INSTACART</a></span></li>
+</ul>
+<h1>News Coverage</h1>
+<ul>
+<li class="separate"><span><a href="https://m.facebook.com/story.php?story_fbid=414343151147364&amp;id=100063558073434" target="_blank" rel="noopener">Central Coast Merchants Reacted to 10 Laws recently signed by California Governor (story in Spanish)</a></span></li>
+<li class="separate"><span><a href="https://www.kcra.com/article/san-joaquin-county-combat-retail-theft/60414777" target="_blank" rel="noopener">San Joaquin County DA launches program to combat retail theft</a></span></li>
+<li class="separate"><span><a href="https://www.kcra.com/article/grocery-stores-preparing-for-christmas-rush-sacramento/42331469" target="_blank" rel="noopener">KRCA&ndash;TV Northern California grocery stores preparing for Christmas rush</a></span></li>
+<li class="separate"><span><a href="https://www.youtube.com/watch?v=39NABDe7Wyo" target="_blank" rel="noopener">Good Day &ndash; Turkey Brigade</a></span></li>
+<li class="separate"><span><a href="https://209times.com/stockton/employee-owned-companys-27-year-tradition-brings-3-2-tons-of-turkeys-to-needy-families/" target="_blank" rel="noopener">209 Times &ndash; Employee Owned Company's 27 Year Tradition Brings 3.2 Tons of Turkeys to Needy Families</a></span></li>
+<li class="separate"><span><a href="https://www.kcra.com/article/lowest-thanksgiving-meal-deals-northern-california/42044556" target="_blank" rel="noopener">KCRA 3 Shops for Lowest Thanksgiving Meal Deals</a></span></li>
+<li class="separate"><span><a href="https://www.kcra.com/article/experts-say-how-you-can-save-money-fourth-july-barbecue/40478312" target="_blank" rel="noopener">KCRA 3 Experts say how you can save money for your 4th of July BBQ</a></span></li>
+</ul>
+</section>
+<!-- </div> --> <!-- </div> --></div>
+</main></div>
+<p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</p>

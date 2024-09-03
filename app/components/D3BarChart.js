@@ -10,9 +10,9 @@ const D3BarChart = ({ data, selectedVisualization, selectedStore, sorting, onIte
     const svg = d3.select(ref.current);
     svg.selectAll("*").remove();
 
-    const width = 800;
-    const height = 400;
-    const margin = { top: 60, right: 120, bottom: 100, left: 60 };
+    const width = 1000; // Increased width to accommodate legend
+    const height = 600; // Increased height to accommodate labels
+    const margin = { top: 60, right: 200, bottom: 120, left: 60 }; // Increased right margin for legend and bottom margin for labels
 
     const xScale = d3.scaleBand().range([margin.left, width - margin.right]).padding(0.1);
     const yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
@@ -37,9 +37,9 @@ const D3BarChart = ({ data, selectedVisualization, selectedStore, sorting, onIte
     };
 
     const renderTopInjuriesChart = (groupBy, title) => {
-      const filteredData = selectedStore.length > 0
-        ? data.filter(d => selectedStore.includes(d["Organization Coding Level 1"]))
-        : data;
+      const filteredData = (selectedVisualization === 'injuriesByLocation' && selectedStore.length > 0 && !selectedStore.includes('all'))
+      ? data.filter(d => selectedStore.includes(d["Organization Coding Level 1"]))
+      : data;
 
       const uniqueGroups = [...new Set(filteredData.map(d => d[groupBy]))];
       
@@ -86,62 +86,83 @@ const D3BarChart = ({ data, selectedVisualization, selectedStore, sorting, onIte
         .attr('y', d => yScale(d.count))
         .attr('height', d => height - margin.bottom - yScale(d.count));
 
-      // X-axis
-      svg.append('g')
-        .attr('transform', `translate(0, ${height - margin.bottom})`)
-        .call(d3.axisBottom(xScale))
-        .selectAll("text")
-        .attr("transform", "rotate(-45)")
-        .style("text-anchor", "end")
-        .attr('dy', '0.5em')
-        .attr('dx', '-0.5em');
-
-      // Y-axis
-      svg.append('g')
-        .attr('transform', `translate(${margin.left}, 0)`)
-        .call(d3.axisLeft(yScale));
-
-      // Title
-      svg.append('text')
-        .attr('x', width / 2)
-        .attr('y', margin.top / 2)
-        .attr('text-anchor', 'middle')
-        .style('font-size', '18px')
-        .style('font-weight', 'bold')
-        .text(title);
-
-      // Legend
-      const legend = svg.append('g')
-        .attr('transform', `translate(${width - margin.right + 10}, ${margin.top})`);
-
-      const uniqueInjuries = Array.from(new Set(topInjuries.map(d => d.injury)));
-      uniqueInjuries.forEach((injury, i) => {
-        const legendItem = legend.append('g')
-          .attr('transform', `translate(0, ${i * 20})`);
-
-        legendItem.append('rect')
-          .attr('width', 15)
-          .attr('height', 15)
-          .attr('fill', colorScale(injury));
-
-        legendItem.append('text')
-          .attr('x', 20)
-          .attr('y', 12)
-          .text(injury)
-          .style('font-size', '12px');
-      });
-
-      // Tooltip
-      const tooltip = d3.select('body').append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0)
-        .style('position', 'absolute')
-        .style('background-color', 'white')
-        .style('border', 'solid')
-        .style('border-width', '1px')
-        .style('border-radius', '5px')
-        .style('padding', '10px');
-    };
+            // X-axis
+            svg.append('g')
+            .attr('transform', `translate(0, ${height - margin.bottom})`)
+            .call(d3.axisBottom(xScale))
+            .selectAll("text")
+            .attr("transform", "rotate(-45)")
+            .style("text-anchor", "end")
+            .attr('dy', '0.5em')
+            .attr('dx', '-0.5em');
+    
+          // Y-axis
+          svg.append('g')
+            .attr('transform', `translate(${margin.left}, 0)`)
+            .call(d3.axisLeft(yScale));
+    
+          // Title
+          svg.append('text')
+            .attr('x', width / 2)
+            .attr('y', margin.top / 2)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '18px')
+            .style('font-weight', 'bold')
+            .text(title);
+    
+          // Legend
+          const legend = svg.append('g')
+            .attr('transform', `translate(${width - margin.right + 10}, ${margin.top})`);
+    
+          const uniqueInjuries = Array.from(new Set(topInjuries.map(d => d.injury)));
+          uniqueInjuries.forEach((injury, i) => {
+            const legendItem = legend.append('g')
+              .attr('transform', `translate(0, ${i * 20})`);
+    
+            legendItem.append('rect')
+              .attr('width', 15)
+              .attr('height', 15)
+              .attr('fill', colorScale(injury));
+    
+            legendItem.append('text')
+              .attr('x', 20)
+              .attr('y', 12)
+              .text(injury)
+              .style('font-size', '12px');
+          });
+    
+          // Tooltip
+          const tooltip = d3.select('body').append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0)
+            .style('position', 'absolute')
+            .style('background-color', 'white')
+            .style('border', 'solid')
+            .style('border-width', '1px')
+            .style('border-radius', '5px')
+            .style('padding', '10px')
+            .style('pointer-events', 'none'); // Prevent tooltip from interfering with mouse events
+  // Update bar mouseover, mouseout, and click events
+  bars.on('mouseover', function(event, d) {
+    d3.select(this).attr('opacity', 0.8);
+    tooltip.transition().duration(200).style('opacity', 0.9);
+    tooltip.html(`${d.group}<br/>Injury: ${d.injury}<br/>Count: ${d.count}`)
+      .style('left', `${event.pageX + 10}px`)
+      .style('top', `${event.pageY - 28}px`);
+  })
+  .on('mouseout', function() {
+    d3.select(this).attr('opacity', 1);
+    tooltip.transition().duration(500).style('opacity', 0);
+  })
+  .on('mousemove', function(event) {
+    tooltip.style('left', `${event.pageX + 10}px`)
+      .style('top', `${event.pageY - 28}px`);
+  })
+  .on('click', function(event, d) {
+    setSelectedItem(d);
+    onItemClick(d);
+  });
+};
 
     const renderHeatmap = () => {
       const correlationData = d3.rollups(
@@ -222,34 +243,34 @@ const D3BarChart = ({ data, selectedVisualization, selectedStore, sorting, onIte
   }, [data, selectedVisualization, selectedStore, sorting, onItemClick]);
   return (
     <div>
-      <svg ref={ref} width="800" height="400"></svg>
-      <button onClick={() => {
-        const svgNode = ref.current;
-        const svgData = new XMLSerializer().serializeToString(svgNode);
-        const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
-        const svgUrl = URL.createObjectURL(svgBlob);
-        const downloadLink = document.createElement("a");
-        downloadLink.href = svgUrl;
-        downloadLink.download = "chart.svg";
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-      }}>
-        Download Chart
-      </button>
-      <button onClick={() => {
-        const svgNode = ref.current;
-        const svgData = new XMLSerializer().serializeToString(svgNode);
-        const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
-        const svgUrl = URL.createObjectURL(svgBlob);
-        const printWindow = window.open(svgUrl);
-        printWindow.onload = function() {
-          printWindow.print();
-        };
-      }}>
-        Print Chart
-      </button>
-    </div>
+    <svg ref={ref} width="1000" height="600"></svg>
+    <button onClick={() => {
+      const svgNode = ref.current;
+      const svgData = new XMLSerializer().serializeToString(svgNode);
+      const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+      const svgUrl = URL.createObjectURL(svgBlob);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = svgUrl;
+      downloadLink.download = "chart.svg";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }}>
+      Download Chart
+    </button>
+    <button onClick={() => {
+      const svgNode = ref.current;
+      const svgData = new XMLSerializer().serializeToString(svgNode);
+      const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+      const svgUrl = URL.createObjectURL(svgBlob);
+      const printWindow = window.open(svgUrl);
+      printWindow.onload = function() {
+        printWindow.print();
+      };
+    }}>
+      Print Chart
+    </button>
+  </div>
   );
 };
 

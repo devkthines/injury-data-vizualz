@@ -10,12 +10,14 @@ const Display = () => {
   const [selectedStore, setSelectedStore] = useState([]);
   const [selectedSorting, setSelectedSorting] = useState('default');
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isViewingData, setIsViewingData] = useState(false);
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     try {
       const parsedData = await parseExcel(file);
       setData(parsedData);
+      setIsViewingData(true);
     } catch (error) {
       console.error("Error parsing Excel file:", error);
     }
@@ -33,6 +35,15 @@ const Display = () => {
     setSelectedItem(item);
   };
 
+  const handleReset = () => {
+    setData([]);
+    setSelectedVisualization('overallInjuries');
+    setSelectedStore([]);
+    setSelectedSorting('default');
+    setSelectedItem(null);
+    setIsViewingData(false);
+  };
+
   return (
     <div className="layout">
       <div className="top-section">
@@ -40,11 +51,19 @@ const Display = () => {
           <h2>Controls</h2>
           <div className="file-input">
             <h3>Upload Data</h3>
-            <input type="file" onChange={handleFileChange} />
+            <input 
+              type="file" 
+              onChange={handleFileChange} 
+              disabled={isViewingData}
+            />
           </div>
           <div className="visualization-selector">
             <h3>Select Visualization</h3>
-            <select value={selectedVisualization} onChange={handleVisualizationChange}>
+            <select 
+              value={selectedVisualization} 
+              onChange={handleVisualizationChange}
+              disabled={!isViewingData}
+            >
               <option value="overallInjuries">Overall Injuries</option>
               <option value="injuriesByLocation">Injuries by Location</option>
               <option value="injuriesByBodyPart">Injuries by Body Part</option>
@@ -53,7 +72,10 @@ const Display = () => {
           </div>
           <div className="sorting-selector">
             <h3>Sort By</h3>
-            <select onChange={handleSortingChange}>
+            <select 
+              onChange={handleSortingChange}
+              disabled={!isViewingData}
+            >
               <option value="default">Default Sorting</option>
               <option value="alphabetical-asc">Alphabetical (A-Z)</option>
               <option value="alphabetical-desc">Alphabetical (Z-A)</option>
@@ -66,17 +88,27 @@ const Display = () => {
               data={data} 
               selectedStore={selectedStore} 
               onStoreChange={setSelectedStore}
+              disabled={!isViewingData}
             />
           )}
+          <button 
+            onClick={handleReset}
+            disabled={!isViewingData}
+            className="reset-button"
+          >
+            Reset
+          </button>
         </div>
         <div className="chart-container">
-          <D3BarChart 
-            data={data} 
-            selectedVisualization={selectedVisualization} 
-            selectedStore={selectedStore}
-            sorting={selectedSorting}
-            onItemClick={handleItemClick}
-          />
+          {isViewingData && (
+            <D3BarChart 
+              data={data} 
+              selectedVisualization={selectedVisualization} 
+              selectedStore={selectedStore}
+              sorting={selectedSorting}
+              onItemClick={handleItemClick}
+            />
+          )}
         </div>
       </div>
       <div className="bottom-section">
@@ -92,7 +124,6 @@ const Display = () => {
           )}
         </div>
       </div>
-
     </div>
   );
 };
