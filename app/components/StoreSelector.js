@@ -17,7 +17,7 @@ const StoreSelector = ({ data, selectedStore, onStoreChange, disabled }) => {
       <h3>Select Stores</h3>
       <p className="instructions">
         Hold Ctrl (Windows) or Cmd (Mac) to select multiple stores. 
-        Choose "All Stores" to select all.
+        Choose &ldquo;All Stores&rdquo; to select all.
       </p>
       <select 
         multiple 

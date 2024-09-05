@@ -203,12 +203,12 @@ const Display = () => {
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4">Instructions</h2>
             <ol className="list-decimal list-inside space-y-2">
-              <li>Upload your Excel file through the "Upload Data" input, ensuring the file contains a single sheet named "Detail."</li>
+              <li>Upload your Excel file through the &ldquo;Upload Data&rdquo; input, ensuring the file contains a single sheet named &ldquo;Detail.&rdquo;</li>
               <li>Choose a visualization type from the dropdown.</li>
-              <li>Use "Sort By" to change data ordering.</li>
-              <li>For location or body part visualizations, use "Select Stores" to filter data.</li>
+              <li>Use &ldquo;Sort By&rdquo; to change data ordering.</li>
+              <li>For location or body part visualizations, use &ldquo;Select Stores&rdquo; to filter data.</li>
               <li>Click on chart elements for more details.</li>
-              <li>Use "Reset" to clear all data and start over.</li>
+              <li>Use &ldquo;Reset&rdquo; to clear all data and start over.</li>
             </ol>
           </div>
         </div>
