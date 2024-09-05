@@ -10,9 +10,9 @@ const D3BarChart = ({ data, selectedVisualization, selectedStore, sorting, onIte
     const svg = d3.select(ref.current);
     svg.selectAll("*").remove();
 
-    const width = 1000; // Increased width to accommodate legend
-    const height = 600; // Increased height to accommodate labels
-    const margin = { top: 60, right: 200, bottom: 120, left: 60 }; // Increased right margin for legend and bottom margin for labels
+    const width = 1500; // Increased width to accommodate legend
+    const height = 900; // Increased height to accommodate labels
+    const margin = { top: 200, right: 300, bottom: 200, left: 300 }; // Increased right margin for legend and bottom margin for labels
 
     const xScale = d3.scaleBand().range([margin.left, width - margin.right]).padding(0.1);
     const yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
